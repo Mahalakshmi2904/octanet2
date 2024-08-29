@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <ul id="todo-list">
+            <!-- List items will be added here -->
+        </ul>
+        <input type="text" id="new-task" placeholder="Add a new task">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <script>
+        function addTask() {
+            var taskText = document.getElementById('new-task').value;
+            if (taskText.trim() !== "") {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <span class="task-text">${taskText}</span>
+                    <button class="edit-btn" onclick="editTask(this)">Edit</button>
+                    <button class="delete-btn" onclick="deleteTask(this)">Delete</button>
+                `;
+                document.getElementById('todo-list').appendChild(listItem);
+                document.getElementById('new-task').value = "";
+            }
+        }
+
+        function editTask(button) {
+            var listItem = button.parentElement;
+            var taskText = listItem.querySelector('.task-text');
+            var newTaskText = prompt("Edit your task", taskText.textContent);
+            if (newTaskText !== null) {
+                taskText.textContent = newTaskText;
+            }
+        }
+
+        function deleteTask(button) {
+            var listItem = button.parentElement;
+            listItem.remove();
+        }
+    </script>
+</body>
+</html>
